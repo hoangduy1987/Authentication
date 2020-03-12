@@ -36,6 +36,7 @@ namespace Server
                             }
                         };
 
+                        // Set up validation parameter
                         config.TokenValidationParameters = new TokenValidationParameters()
                         {
                             ValidIssuer = Constants.Issuer,
@@ -45,7 +46,8 @@ namespace Server
                     });
 
             // Add all authorize attr to all controllers
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
