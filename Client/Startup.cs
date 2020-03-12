@@ -40,16 +40,16 @@ namespace Client
                 {
                     OnCreatingTicket = context =>
                     {
-                        var accessToken = context.AccessToken;
-                        var payload = accessToken.Split('.')[1];
-                        var bytes = Convert.FromBase64String(payload);
-                        var jsonPayload = Encoding.UTF8.GetString(bytes);
-                        var claims = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonPayload);
+                        //var accessToken = context.AccessToken;
+                        //var payload = accessToken.Split('.')[1];
+                        //var bytes = Convert.FromBase64String(payload);
+                        //var jsonPayload = Encoding.UTF8.GetString(bytes);
+                        //var claims = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonPayload);
 
-                        foreach (var claim in claims)
-                        {
-                            context.Identity.AddClaim(new Claim(claim.Key, claim.Value));
-                        }
+                        //foreach (var claim in claims)
+                        //{
+                        //    context.Identity.AddClaim(new Claim(claim.Key, claim.Value));
+                        //}
 
                         return Task.CompletedTask;
                     }
