@@ -68,7 +68,7 @@ namespace Server.Controllers
 
             var token = new JwtSecurityToken(
                     Constants.Issuer,
-                    Constants.Audiance,
+                    Constants.Audience,
                     claims,
                     notBefore: DateTime.Now,
                     expires: DateTime.Now.AddHours(1),

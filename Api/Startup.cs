@@ -22,8 +22,8 @@ namespace Api
 
             services.AddAuthorization(config =>
             {
-                var defautAuthoBuilder = new AuthorizationPolicyBuilder();
-                var defaultAuthPolicy = defautAuthoBuilder
+                var defaultAuthBuilder = new AuthorizationPolicyBuilder();
+                var defaultAuthPolicy = defaultAuthBuilder
                     .AddRequirements( new JwtRequirement()) // Overide requirement
                     .Build();
 

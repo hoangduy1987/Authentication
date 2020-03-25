@@ -19,8 +19,8 @@ namespace Server
             services.AddAuthentication("OAuth")
                     .AddJwtBearer("OAuth", config => 
                     {
-                        var serectBytes = Encoding.UTF8.GetBytes(Constants.Secret);
-                        var key = new SymmetricSecurityKey(serectBytes);
+                        var secretBytes = Encoding.UTF8.GetBytes(Constants.Secret);
+                        var key = new SymmetricSecurityKey(secretBytes);
 
                         // Set up for send token through url
                         config.Events = new JwtBearerEvents()
@@ -40,7 +40,7 @@ namespace Server
                         config.TokenValidationParameters = new TokenValidationParameters()
                         {
                             ValidIssuer = Constants.Issuer,
-                            ValidAudience = Constants.Audiance,
+                            ValidAudience = Constants.Audience,
                             IssuerSigningKey = key
                         };
                     });
