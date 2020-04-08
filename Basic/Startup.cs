@@ -3,7 +3,6 @@ using Basic.AuthorizationRequirments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -11,6 +10,7 @@ namespace Basic
 {
     public class Startup
     {
+        // https://www.youtube.com/playlist?list=PLOeFnOV9YBa7dnrjpOG6lMpcyd7Wn7E8V
         // https://www.youtube.com/playlist?list=PLOeFnOV9YBa7dnrjpOG6lMpcyd7Wn7E8V
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -51,8 +51,8 @@ namespace Basic
             // Add all authorize attr to all controllers
             services.AddControllersWithViews(config => 
             {
-                var defautAuthBuilder = new AuthorizationPolicyBuilder();
-                var defaultAuthPolicy = defautAuthBuilder
+                var defaultAuthBuilder = new AuthorizationPolicyBuilder();
+                var defaultAuthPolicy = defaultAuthBuilder
                 .RequireAuthenticatedUser()
                 .Build();
 
