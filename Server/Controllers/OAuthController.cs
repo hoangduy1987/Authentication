@@ -15,16 +15,16 @@ namespace Server.Controllers
     {
         [HttpGet]
         public IActionResult Authorize(
-            string responseType, // authorization flow type
-            string clientId,  // client id
-            string redirectUri, // 
+            string response_type, // authorization flow type
+            string client_id,  // client id
+            string redirect_uri, // 
             string scope, // what info I want = email, grandma, tel
             string state // random string generated to confirm that we are going to back to the same client
             )
         {
             var query = new QueryBuilder
             {
-                { "redirectUri", redirectUri },
+                { "redirect_uri", redirect_uri },
                 { "state", state }
             };
 
@@ -34,7 +34,7 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Authorize(
             string username,
-            string redirectUri,
+            string redirect_uri,
             string state
             )
         {
@@ -44,14 +44,14 @@ namespace Server.Controllers
                 { "state", state }
             };
 
-            return Redirect($"{redirectUri}{query.ToString()}");
+            return Redirect($"{redirect_uri}{query}");
         }
 
         public async Task<IActionResult> Token(
-            string grantType, // flow of access_token request
+            string grant_type, // flow of access_token request
             string code, // confirmation of authentication process
-            string redirectUri,
-            string clientId
+            string redirect_uri,
+            string client_id
             )
         {
             // some mechanism for validating the code
@@ -72,7 +72,7 @@ namespace Server.Controllers
                     Constants.Audience,
                     claims,
                     notBefore: DateTime.Now,
-                    expires: DateTime.Now.AddHours(1),
+                    expires: DateTime.Now.AddMilliseconds(1),
                     signingCredentials
                 );
 
@@ -90,7 +90,7 @@ namespace Server.Controllers
 
             await Response.Body.WriteAsync(responseBytes, 0 , responseBytes.Length);
 
-            return Redirect(redirectUri);
+            return Redirect(redirect_uri);
         }
 
         /// <summary>

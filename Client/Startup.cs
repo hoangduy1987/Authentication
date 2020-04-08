@@ -32,7 +32,7 @@ namespace Client
                 config.TokenEndpoint = "http://localhost:62483/oauth/token";
 
                 config.SaveTokens = true;
-                config.Events = new OAuthEvents()
+                config.Events = new OAuthEvents
                 {
                     OnCreatingTicket = context =>
                     {

@@ -24,7 +24,7 @@ namespace Server
                         var key = new SymmetricSecurityKey(secretBytes);
 
                         // Set up for send token through url
-                        config.Events = new JwtBearerEvents()
+                        config.Events = new JwtBearerEvents
                         {
                             OnMessageReceived = context =>
                             {
@@ -38,7 +38,7 @@ namespace Server
                         };
 
                         // Set up validation parameter
-                        config.TokenValidationParameters = new TokenValidationParameters()
+                        config.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidIssuer = Constants.Issuer,
                             ValidAudience = Constants.Audience,

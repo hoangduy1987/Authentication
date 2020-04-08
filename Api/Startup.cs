@@ -20,7 +20,7 @@ namespace Api
             {
                 var defaultAuthBuilder = new AuthorizationPolicyBuilder();
                 var defaultAuthPolicy = defaultAuthBuilder
-                    .AddRequirements( new JwtRequirement()) // Overide requirement
+                    .AddRequirements( new JwtRequirement()) // Override requirement
                     .Build();
 
                 config.DefaultPolicy = defaultAuthPolicy;

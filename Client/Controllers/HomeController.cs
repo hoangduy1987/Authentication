@@ -25,13 +25,14 @@ namespace Client.Controllers
         [Authorize]
         public async Task<IActionResult> Secret()
         {
+            // get token from Http context
             var token = await HttpContext.GetTokenAsync("access_token");
 
             // add token to header request
             _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
+            // call Api with token received
             var response = await _client.GetAsync($"{Constants.Audiance}/secret/index");
-
             var apiResponse = await _client.GetAsync("http://localhost:54857/secret/index");
 
             return View();
