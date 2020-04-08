@@ -29,8 +29,8 @@ namespace Server.Controllers
                 new Claim("granny", "cookie")
             };
 
-            var serectBytes = Encoding.UTF8.GetBytes(Constants.Secret);
-            var key = new SymmetricSecurityKey(serectBytes);
+            var secretBytes = Encoding.UTF8.GetBytes(Constants.Secret);
+            var key = new SymmetricSecurityKey(secretBytes);
             var algorithm = SecurityAlgorithms.HmacSha256;
 
             var signingCredentials = new SigningCredentials(key, algorithm);
