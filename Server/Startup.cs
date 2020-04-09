@@ -1,3 +1,4 @@
+using System;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,7 @@ namespace Server
                         var secretBytes = Encoding.UTF8.GetBytes(Constants.Secret);
                         var key = new SymmetricSecurityKey(secretBytes);
 
-                        // Set up for send token through url
+                        // Set up for send token through url (require for send Authorization)
                         config.Events = new JwtBearerEvents
                         {
                             OnMessageReceived = context =>
@@ -40,6 +41,7 @@ namespace Server
                         // Set up validation parameter
                         config.TokenValidationParameters = new TokenValidationParameters
                         {
+                            ClockSkew = TimeSpan.Zero, // Make validate effect immediately
                             ValidIssuer = Constants.Issuer,
                             ValidAudience = Constants.Audience,
                             IssuerSigningKey = key

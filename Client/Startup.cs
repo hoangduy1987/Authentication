@@ -32,24 +32,24 @@ namespace Client
                 config.TokenEndpoint = "http://localhost:62483/oauth/token";
 
                 config.SaveTokens = true;
-                config.Events = new OAuthEvents
-                {
-                    OnCreatingTicket = context =>
-                    {
-                        //var accessToken = context.AccessToken;
-                        //var payload = accessToken.Split('.')[1];
-                        //var bytes = Convert.FromBase64String(payload);
-                        //var jsonPayload = Encoding.UTF8.GetString(bytes);
-                        //var claims = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonPayload);
+                //config.Events = new OAuthEvents
+                //{
+                //    OnCreatingTicket = context =>
+                //    {
+                //        //var accessToken = context.AccessToken;
+                //        //var payload = accessToken.Split('.')[1];
+                //        //var bytes = Convert.FromBase64String(payload);
+                //        //var jsonPayload = Encoding.UTF8.GetString(bytes);
+                //        //var claims = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonPayload);
 
-                        //foreach (var claim in claims)
-                        //{
-                        //    context.Identity.AddClaim(new Claim(claim.Key, claim.Value));
-                        //}
+                //        //foreach (var claim in claims)
+                //        //{
+                //        //    context.Identity.AddClaim(new Claim(claim.Key, claim.Value));
+                //        //}
 
-                        return Task.CompletedTask;
-                    }
-                };
+                //        return Task.CompletedTask;
+                //    }
+                //};
             });
 
             services.AddHttpClient();

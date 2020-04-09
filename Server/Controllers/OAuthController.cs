@@ -51,7 +51,8 @@ namespace Server.Controllers
             string grant_type, // flow of access_token request
             string code, // confirmation of authentication process
             string redirect_uri,
-            string client_id
+            string client_id,
+            string refresh_token
             )
         {
             // some mechanism for validating the code
@@ -72,7 +73,9 @@ namespace Server.Controllers
                     Constants.Audience,
                     claims,
                     notBefore: DateTime.Now,
-                    expires: DateTime.Now.AddMilliseconds(1),
+                    expires: grant_type == "refresh_token"
+                                ? DateTime.Now.AddMinutes(5)
+                                : DateTime.Now.AddMilliseconds(1),
                     signingCredentials
                 );
 
@@ -82,7 +85,8 @@ namespace Server.Controllers
             {
                 access_token = accessToken,
                 token_type = "Bearer",
-                raw_claim = "oauthTutorial"
+                raw_claim = "oauthTutorial",
+                refresh_token = "RefreshTokenSampleABCDERFsfasdfasfasdf"
             };
 
             var responseJson = JsonConvert.SerializeObject(responseObject);
