@@ -24,7 +24,7 @@ namespace Server
                         var secretBytes = Encoding.UTF8.GetBytes(Constants.Secret);
                         var key = new SymmetricSecurityKey(secretBytes);
 
-                        // Set up for send token through url (require for send Authorization)
+                        // Set up for send token through url (require for send Authorization with Api)
                         config.Events = new JwtBearerEvents
                         {
                             OnMessageReceived = context =>

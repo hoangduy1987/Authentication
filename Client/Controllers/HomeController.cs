@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -28,15 +27,8 @@ namespace Client.Controllers
         [Authorize]
         public async Task<IActionResult> Secret()
         {
-            // get token from Http context
-            var token = await HttpContext.GetTokenAsync("access_token");
-
-            var serverClient = _httpClientFactory.CreateClient();
-            // add token to header request
-            serverClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-
             // Check that token still can authorize
-            var response = await serverClient.GetAsync("http://localhost:62483/secret/index");
+            var response = await SecuredGetRequest("http://localhost:62483/secret/index");
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 // refresh token here
@@ -44,16 +36,12 @@ namespace Client.Controllers
             }
 
             // call Api with token received
-            var apiClient = _httpClientFactory.CreateClient();
-            // Get new refresh token
-            token = await HttpContext.GetTokenAsync("access_token");
-            apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            var apiResponse = await apiClient.GetAsync("http://localhost:54857/secret/index");
+            var apiResponse = await SecuredGetRequest("http://localhost:54857/secret/index");
 
             return View();
         }
 
-        public async Task RefreshAccessToken()
+        private async Task RefreshAccessToken()
         {
             // Call to server side to get new token
             var refreshTokenClient = _httpClientFactory.CreateClient();
@@ -90,6 +78,23 @@ namespace Client.Controllers
 
             //store again authenticate info
             await HttpContext.SignInAsync("ClientCookie", authInfo.Principal, authInfo.Properties);
-        } 
+        }
+
+        /// <summary>
+        /// Make GET request secured
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private async Task<HttpResponseMessage> SecuredGetRequest(string url)
+        {
+            // get token from Http context
+            var token = await HttpContext.GetTokenAsync("access_token");
+
+            var client = _httpClientFactory.CreateClient();
+            // add token to header request
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            return await client.GetAsync(url);
+        }
     }
 }
